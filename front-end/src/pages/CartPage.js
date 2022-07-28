@@ -4,6 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 import UserContext from "../context/UserContext";
 import { Button } from "@mui/material";
 import "../css/Cart.css";
+import EmptyCartImage from '../assets/imags/empty-cart.jpg'
 
 function Cart() {
   let { cartitems, user, itemadd } = useContext(UserContext);
@@ -59,7 +60,7 @@ function Cart() {
 								<div class='w-full px-2'>
 
 									<div class="flex flex-col justify-between items-center mt-6 pt-6">
-										<div class="flex items-center">  TODO:
+										<div class="flex items-center">  
 										
 										<img src={item.img} width="60" class="rounded-md "/>
 											<div class="flex flex-col ml-3">  
@@ -91,7 +92,7 @@ function Cart() {
 							// <Redirect to={"/"}></Redirect>
 							<>
 								<div class='flex justify-center align-center'>
-									<img src='http://bookworldranchi.com/assets/website/images/empty-cart.png'/>
+									<img src={EmptyCartImage} />
 								</div>
 							</>
 						)}

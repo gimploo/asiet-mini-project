@@ -4,7 +4,7 @@ import UserContext from "../context/UserContext";
 const UserInfoDump = ({ value }) => {
 
   return (
-    <div class="rounded-lg md:w-1/2 w-full border-4">
+    <div class="rounded-lg w-1/4 border-4">
       <h2 class="p-10 bg-yellow-300 font-semibold text-4xl md:text-6xl text-blue-800">
         About
       </h2>
@@ -32,13 +32,15 @@ const DashboardPage = () => {
   return ( 
    <>
     <div class="bg-blue-800 p-20 space-y-8" style={{minHeight:"100vh"}}>
+
       <UserInfoDump value={user} />
 
-      <button class='p-4 hover:bg-red-500 bg-red-600 font-semibold text-red-100 text-2xl rounded-lg w-1/2 h-20' onClick={logoutUser}> 
+      <button class='w-40 p-4 hover:bg-red-500 bg-red-600 font-semibold text-red-100 text-2xl rounded-lg h-20' onClick={logoutUser}> 
         LOGOUT 
       </button>
 
     </div>
+
    </>
   )
 }
