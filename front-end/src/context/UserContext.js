@@ -39,6 +39,9 @@ export const UserProvider = ({ children }) => {
   let loginUser = async (e) => {
     e.preventDefault();
     setLoading(false);
+    // add code here
+    // let username = e.traget.username.value;
+    // let password = e.traget.password.value;
     let userid = e.target.userid.value;
     await axios
       .get(`api/login/${userid}/`)

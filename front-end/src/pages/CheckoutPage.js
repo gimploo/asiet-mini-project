@@ -4,31 +4,23 @@ import { Button } from "@mui/material";
 import UserContext from "../context/UserContext";
 function CheckoutPage() {
 
+  useEffect(() => {
+    
+        userstate();
+      }, []);
+    
+    let {checkout,userstate} = useContext(UserContext);
+    const emptycart = (e) => {
+
+      e.preventDefault();
+        checkout(e);
+
+    }
+
 	return (
 
 <div class="bg-white">
   <main class="lg:min-h-screen lg:overflow-hidden">
-
-    {/* <!-- Mobile order summary --> */}
-    <section aria-labelledby="order-heading" class="bg-gray-50 px-4 py-6 sm:px-6 lg:hidden">
-      <div class="max-w-lg mx-auto">
-        <div class="flex items-center justify-between">
-          <h2 id="order-heading" class="text-lg font-medium text-gray-900">Your Order</h2>
-          <button type="button" class="font-medium text-indigo-600 hover:text-indigo-500" aria-controls="disclosure-1" aria-expanded="false">
-            {/* <!-- Only display for open option. --> */}
-            <span>Hide full summary</span>
-            {/* <!-- Don't display for open option. --> */}
-            <span>Show full summary</span>
-          </button>
-        </div>
-
-
-        <p class="flex items-center justify-between text-sm font-medium text-gray-900 border-t border-gray-200 pt-6 mt-6">
-          <span class="text-base">Total</span>
-          <span class="text-base">${}</span>
-        </p>
-      </div>
-    </section>
 
     {/* <!-- Checkout form --> */}
     <section aria-labelledby="payment-heading" class="flex-auto overflow-y-auto px-4 pt-12 pb-16 sm:px-6 sm:pt-16 lg:px-8 lg:pt-0 lg:pb-24">
@@ -65,7 +57,7 @@ function CheckoutPage() {
           </div>
         </div>
 
-        <form class="mt-6">
+        <form onSubmit={emptycart} class="mt-6">
           <div class="grid grid-cols-12 gap-y-6 gap-x-4">
             <div class="col-span-full">
               <label for="email-address" class="block text-sm font-medium text-gray-700">Email address</label>
@@ -77,7 +69,7 @@ function CheckoutPage() {
             <div class="col-span-full">
               <label for="name-on-card" class="block text-sm font-medium text-gray-700">Name on card</label>
               <div class="mt-1">
-                <input type="text" id="name-on-card" name="name-on-card" autocomplete="cc-name" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
+                <input type="text" id="name-on-card" name="ordername" autocomplete="cc-name" class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"/>
               </div>
             </div>
 
@@ -138,9 +130,7 @@ function CheckoutPage() {
             <label for="same-as-shipping" class="text-sm font-medium text-gray-900">Billing address is the same as shipping address</label>
           </div>
 
-        <Link to='/'>
           <button class="w-full mt-6 bg-indigo-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Pay </button>
-        </Link>
 
           <p class="flex justify-center text-sm font-medium text-gray-500 mt-6">
             {/* <!-- Heroicon name: solid/lock-closed --> */}

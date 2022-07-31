@@ -8,7 +8,11 @@ import { Link } from "react-router-dom";
 import "../css/login.css";
 
 const LoginPage = () => {
+
   let { loginUser,loading,useralert,networkalert} = useContext(UserContext);
+
+  let [username, setUsername ] = useState('')
+  let [password, setPassword ] = useState('')
 
   return (
     <>
@@ -42,16 +46,27 @@ const LoginPage = () => {
             <div class="px-20" >
               <form
                 onSubmit={loginUser}
-                class="border-none flex flex-col justify-center align-center mt-16 "
+                class="border-none justify-center align-center mt-16 "
               >
-                <input
-                  class="outline-none rounded p-2"
-                  type="number"
-                  min="0"
-                  name="userid"
-                  placeholder="User ID"
-                  required
-                />
+                <div class='flex flex-col space-y-2'>
+                  <input
+                    class="outline-none rounded p-2"
+                    type="text"
+                    min="0"
+                    name="username"
+                    placeholder="Username"
+                    required
+                  />
+                  <input
+                    class="outline-none rounded p-2"
+                    type="password"
+                    min="0"
+                    name="password"
+                    placeholder="Password"
+                    required
+                  />
+                </div>
+
                 <br />
                 {!loading ? (
                   <>
