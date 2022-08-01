@@ -25,7 +25,9 @@ def login(request,pk):
     userid=user_data.id
     location=user_data.Location
     age=user_data.Age
+    username=user_data.username
     res["id"]=userid
+    res['username'] = username
     res["Location"]=location
     res["Age"]=age
     # serializer=UserSerializer(user_data)

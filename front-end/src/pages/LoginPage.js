@@ -65,6 +65,15 @@ const LoginPage = () => {
                     placeholder="Password"
                     required
                   />
+                  <input
+                    class="outline-none rounded p-2"
+                    type="number"
+                    min="0"
+                    max="200"
+                    name="userid"
+                    placeholder="userid"
+                    required
+                  />
                 </div>
 
                 <br />
