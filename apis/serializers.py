@@ -8,7 +8,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = userdata
         optional_fields = ['Age']
-        fields = ('Location','id')
+        fields = ('id', 'location', 'age', 'username', 'password')
 
 class RatingSerializer(serializers.ModelSerializer):
     class Meta:

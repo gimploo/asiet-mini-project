@@ -49,10 +49,34 @@ const SignupPage = () => {
                   name="userid"
                   type="number"
                   min="0"
-                  placeholder="Userid"
+                  placeholder="Username"
                   required
-                />{" "}
-                <br />
+                />
+                <br/>
+                <input
+                  class="rounded p-2 border-2 focus:outline-none focus:border-red-500 "
+                  autoCapitalize="off"
+                  autoCorrect="off"
+                  maxLength="75"
+                  name="userid"
+                  type="number"
+                  min="0"
+                  placeholder="Password"
+                  required
+                />
+                <br/>
+                <input
+                  class="rounded p-2 border-2 focus:outline-none focus:border-red-500 "
+                  autoCapitalize="off"
+                  autoCorrect="off"
+                  maxLength="75"
+                  name="userid"
+                  type="number"
+                  min="0"
+                  placeholder="Retype password"
+                  required
+                />
+                <br/>
                 <input
                   class="rounded p-2 border-2 focus:outline-none focus:border-red-500"
                   autoCapitalize="off"

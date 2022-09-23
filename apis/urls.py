@@ -5,7 +5,7 @@ from .views import(
 )
 
 urlpatterns = [
-    path('api/login/<int:pk>/',views.login, name='login'), 
+    path('api/login/',views.login, name='login'), 
     path('api/user_rating/<int:pk>/',views.User_Rating, name='Rating'), 
     path('api/book/<str:pk>/',views.book,name='books'),
     path('api/search/',views.search,name='search'),

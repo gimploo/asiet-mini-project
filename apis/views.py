@@ -15,25 +15,20 @@ from rest_framework.pagination import PageNumberPagination
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy.sparse import csr_matrix
 from sklearn.neighbors import NearestNeighbors
+from django.core import serializers
 
 fs=FileSystemStorage(location='tmp/')
 
-@api_view(['GET'])
-def login(request,pk):
-    res={}
-    user_data=userdata.objects.get(id=pk)
-    userid=user_data.id
-    location=user_data.Location
-    age=user_data.Age
-    username=user_data.username
-    res["id"]=userid
-    res['username'] = username
-    res["Location"]=location
-    res["Age"]=age
-    # serializer=UserSerializer(user_data)
-    return Response(res)
-
-
+@api_view(['POST'])
+def login(request):
+    username    = request.data["username"]
+    password    = request.data["password"]
+    users = userdata.objects.all()
+    for user in users:
+        if (user.username == username and user.password == password):
+            print(user)
+            return Response(serializers.serialize('python', [user] ))
+    return Response("Failed")
 
 
 @api_view(['GET'])

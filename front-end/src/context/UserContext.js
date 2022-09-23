@@ -39,18 +39,24 @@ export const UserProvider = ({ children }) => {
   let loginUser = async (e) => {
     e.preventDefault();
     setLoading(false);
-    // add code here
-    // let username = e.traget.username.value;
-    // let password = e.traget.password.value;
-    let userid = e.target.userid.value;
+    const username = e.target.username.value;
+    const password = e.target.password.value;
     await axios
-      .get(`api/login/${userid}/`)
-
+      .post(`api/login/`, {"username" : username , "password" : password})
       .then((res) => {
         setLoading(true);
+        const id = res.data[0].pk;
         if (res.status == 200) {
-          localStorage.setItem("user_id", res.data.id);
-          setUser(res.data);
+          localStorage.setItem("user_id", JSON.stringify(id));
+          localStorage.setItem("user_data", JSON.stringify(res.data[0].fields));
+          const userobj = {
+            'id' : res.data[0].pk,
+            'username' : res.data[0].fields.username,
+            'password' : res.data[0].fields.password,
+            'Location' : res.data[0].fields.Location,
+            'Age' : res.data[0].fields.Age,
+          }
+          setUser(userobj);
           history.push("/");
         } else {
           alert("Something went wrong");
@@ -61,13 +67,13 @@ export const UserProvider = ({ children }) => {
         if (!err.response) {
           setLoading(true);
           setNetworkalert(true);
-          // alert('Network Error check connection')
+          alert('Network Error check connection')
         }
         if (err.response) {
           if (err.response.status == 500) {
             setLoading(true);
             setUseralert(true);
-            // alert('User id is incorrect!')
+            alert('User id is incorrect!')
           }
         }
       });
@@ -105,21 +111,14 @@ export const UserProvider = ({ children }) => {
     setSearchload(false);
     setRecomBook(null)
     localStorage.removeItem("user_id");
+    localStorage.removeItem("user_data");
     history.replace("/");
   };
 
   const userstate = () => {
-    const userid = localStorage.getItem("user_id");
-    axios
-      .get(`api/login/${userid}/`)
-
-      .then((res) => {
-        if (res.status == 200) {
-          setUser(res.data);
-        } else {
-          alert("Login again");
-        }
-      });
+    const userdata = localStorage.getItem('user_data')
+    if (userdata) return userdata;
+    else alert("cache userdata not found");
   };
   const searchvalue = (value, event) => {
     event.preventDefault();
@@ -160,8 +159,11 @@ export const UserProvider = ({ children }) => {
   };
 
   const recom_book = async () => {
+
+    const id = localStorage.getItem('user_id')
+    if (id === null) alert('id is null')
     await axios
-      .get(`api/recommentation/${userid}/`)
+      .get(`api/recommentation/${id}/`)
       .then((res) => {
         if (res && res.status == 200) {
           if (res.data == 0) {
