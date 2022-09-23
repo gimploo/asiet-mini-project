@@ -1,4 +1,4 @@
-# ASIET Minor project (s6)
+# ASIET Mini project (s6)
 
 # fontend
 ```
