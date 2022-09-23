@@ -118,7 +118,7 @@ export const UserProvider = ({ children }) => {
   const userstate = () => {
     const userdata = localStorage.getItem('user_data')
     if (userdata) return userdata;
-    else alert("cache userdata not found");
+    return null;
   };
   const searchvalue = (value, event) => {
     event.preventDefault();
@@ -161,7 +161,8 @@ export const UserProvider = ({ children }) => {
   const recom_book = async () => {
 
     const id = localStorage.getItem('user_id')
-    if (id === null) alert('id is null')
+    if (id == null) return;
+
     await axios
       .get(`api/recommentation/${id}/`)
       .then((res) => {
