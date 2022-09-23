@@ -110,7 +110,7 @@ const HomePage = () => {
 
     <div style={{minHeight:"100vh"}} >
 
-      <div class=" border-2 h-auto text-center w-full">
+      <div class=" border-1 text-center w-full">
         <Carousel
           data={data}
           time={10000}
@@ -136,10 +136,8 @@ const HomePage = () => {
           <>
             {sres[0] ? (
               <>
-                {sres.length != 0 ? (
+                {sres.length !== 0 ? (
                   <>
-                  {/* FIXME:*/}
-                  
                     {sres.length <= 10 ? (
                       <>
                         <h2 className="trending_tit">
@@ -147,7 +145,6 @@ const HomePage = () => {
                         </h2>
                         <div
                           className="searchresults"
-                      
                         >
                           {sres.map((item, key) => (
                             <div
