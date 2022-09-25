@@ -133,6 +133,7 @@ export const UserProvider = ({ children }) => {
         if (res && res.status == 200) {
           localStorage.setItem("search_value", search);
           setSres(res.data);
+          console.log(res.data)
           setInitial(true);
           setSearchload(false);
         }

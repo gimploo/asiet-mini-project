@@ -14,7 +14,7 @@ def upload_path(instance,filename):
     return ''
 
 class Books(models.Model):
-    ISBN=models.CharField(max_length=200,unique=True, editable=True)
+    ISBN=models.CharField(primary_key=True, max_length=200,editable=True)
     Book_title= models.CharField(max_length=500)
     Book_Author =models.CharField(max_length=500)
     Year_of_Publication=models.CharField(null=True,max_length=300)
@@ -27,7 +27,7 @@ class Books(models.Model):
         return self.Book_title 
 
 class Rating(models.Model):
-    user_id=models.IntegerField()
+    user_id=models.PositiveBigIntegerField()
     isbn=models.CharField(max_length=200)
     rating=models.IntegerField(null=True,blank=True) 
 
