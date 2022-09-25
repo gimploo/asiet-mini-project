@@ -4,7 +4,7 @@ from django.db import models
 
 
 class userdata(models.Model):
-    id          = models.PositiveIntegerField(primary_key=True)
+    id          = models.PositiveIntegerField(primary_key=True, unique=True, null=False)
     Location    = models.CharField(max_length=200)
     Age         = models.CharField(max_length=100,null=True,blank=True)
     username    = models.CharField(null=True, max_length=200)
@@ -14,7 +14,7 @@ def upload_path(instance,filename):
     return ''
 
 class Books(models.Model):
-    ISBN=models.CharField(primary_key=True, max_length=200,editable=True)
+    ISBN=models.CharField(unique=True, max_length=200,editable=True)
     Book_title= models.CharField(max_length=500)
     Book_Author =models.CharField(max_length=500)
     Year_of_Publication=models.CharField(null=True,max_length=300)

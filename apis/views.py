@@ -21,14 +21,15 @@ fs=FileSystemStorage(location='tmp/')
 
 @api_view(['POST'])
 def login(request):
-    username    = request.data["username"]
-    password    = request.data["password"]
+    username    = request.data['username']
+    password    = request.data['password']
+    if (username == "" or password == ""): 
+        return Response("EMPTY FIELDS")
     users = userdata.objects.all()
     for user in users:
-        if (user.username == username and user.password == password):
-            print(user)
+        if (user.password == password and user.username == username):
             return Response(serializers.serialize('python', [user] ))
-    return Response("Failed")
+    return Response("INVALID USERNAME AND PASSWORD")
 
 
 @api_view(['GET'])
