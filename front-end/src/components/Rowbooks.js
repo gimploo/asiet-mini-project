@@ -12,10 +12,7 @@ import MuiAlert from "@mui/material/Alert";
 
 function Rowbooks() {
   const addcartapi = "api/addcart/";
-  let { user, itemadd, trending } = useContext(UserContext);
-  const [open, setOpen] = useState(false);
-  const [openerr, setOpenErr] = useState(false);
-  const [loaditem, setLoadItem] = useState(false);
+  let { user, itemadd, trending, open, setOpen, openerr, setOpenErr, loaditem, setLoadItem } = useContext(UserContext);
 
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -24,7 +21,6 @@ function Rowbooks() {
     if (reason === "clickaway") {
       return;
     }
-
     setOpen(false);
   };
   const handleClose1 = (event, reason) => {

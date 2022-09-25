@@ -32,11 +32,13 @@ const SearchBar = () => {
 
 const Navbar = ({ toggle }) => {
 
-  let { user, searchload } = useContext(UserContext);
+  let { user, searchload, setShowSearchResult } = useContext(UserContext);
 
   const LeftNavbar = () => {
     return (
-      <Link to="/">
+      <Link onClick={() => {
+        setShowSearchResult(false)
+      }} to="/">
         <div class="w-40 h-10 mt-2 pt-2 cursor-pointer logo-head">
           <img src={COMPANYLOGO} alt="suyati-company-logo" />
         </div>
@@ -102,6 +104,13 @@ const Navbar = ({ toggle }) => {
             class="px-8 py-6  hover:text-blue-400  rounded-3xl drop-shadow"
           >
             Ratings
+
+          </Link>
+          <Link
+            to="/shop"
+            class="px-8 py-6  hover:text-blue-400  rounded-3xl drop-shadow"
+          >
+            Shop
 
           </Link>
 

@@ -15,6 +15,8 @@ import DashboardPage from './pages/DashboardPage';
 import Footer from './components/Footer';
 import Dropdown from './components/Dropdown.js';
 import Orders from './pages/Orders.js';
+import BookPage from './pages/BookPage.js'
+import ShopPage from './pages/ShopPage.js'
 
 const App = () => {
 
@@ -24,7 +26,7 @@ const App = () => {
 	}
 
 	return (
-		<div class=' bg-gradient-to-br from-indigo-500 to-indigo-800' >
+		<div class=' bg-gradient-to-tr from-white to-gray-200' >
 			<BrowserRouter>
 				<UserProvider>
 					<Navbar toggle={toggle}/>
@@ -32,8 +34,10 @@ const App = () => {
 					<Route exact path='/ratings/:id' component={Ratings} />
 					<Route path='/' component={HomePage} exact />
 					<Route path='/login' component={LoginPage} />
+					<Route path='/book/:isbn' component={BookPage} />
 					<UserRoute component={MyBooksPage} path='/books'/>
 					<Route path='/signup' component={SignupPage} />
+					<Route path='/shop' component={ShopPage} />
 					<Route path='/cart' component={Cart} />
 					<Route path='/checkout' component={CheckoutPage}/>
 					<Route path='/manageorder' component={ManageOrder}/>

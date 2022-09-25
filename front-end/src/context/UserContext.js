@@ -7,7 +7,7 @@ export default UserContext;
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [rating, setRating] = useState(null);
-  const [search, setSearch] = useState(null);
+  const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
   const [sres, setSres] = useState([]);
   const [nullrecom, setNullRecom] = useState(false);
@@ -23,12 +23,24 @@ export const UserProvider = ({ children }) => {
   const [state, setState] = useState(false);
   const [searchload, setSearchload] = useState(false);
 
+  const [open, setOpen] = useState(false);
+  const [openerr, setOpenErr] = useState(false);
+  const [loaditem, setLoadItem] = useState(false);
+
+  const [showSearchResult, setShowSearchResult] = useState(false)
+
   const userid = localStorage.getItem("user_id");
   const history = useHistory();
 
   useEffect(() => {
-    savesearch();
-  }, [sres]);
+
+	if (sres.length >= 1 )
+		setShowSearchResult(true)
+	else
+		setShowSearchResult(false)
+
+  }, [sres])
+
   useEffect(() => {
     updatecount();
   }, [cartitems]);
@@ -55,6 +67,7 @@ export const UserProvider = ({ children }) => {
             'password' : res.data[0].fields.password,
             'Location' : res.data[0].fields.Location,
             'Age' : res.data[0].fields.Age,
+            'points' : res.data[0].fields.points,
           }
           setUser(userobj);
           history.push("/");
@@ -126,16 +139,19 @@ export const UserProvider = ({ children }) => {
   };
 
   const booksearch = () => {
+	history.push('/')
     setSearchload(true);
     axios
-      .get(search_api)
+      .get(`http://localhost:8000/api/search/?temp=${search}`)
       .then((res) => {
         if (res && res.status == 200) {
-          localStorage.setItem("search_value", search);
-          setSres(res.data);
-          console.log(res.data)
-          setInitial(true);
-          setSearchload(false);
+			console.log(search)
+			setSres(res.data);
+			setInitial(true);
+			setSearchload(false);
+			if (sres.length >= 1) {
+				setShowSearchResult(true)
+			}
         }
       })
       .catch((err) => {
@@ -143,20 +159,20 @@ export const UserProvider = ({ children }) => {
       });
   };
   const savesearch = () => {
-    const saveapi = "api/savesearch/";
-    const userlogin = localStorage.getItem("user_id");
-    if (userlogin && sres.length == 1) {
-      var title = sres[0].Book_title;
-      var user = localStorage.getItem("user_id");
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
+    // const saveapi = "api/savesearch/";
+    // const userlogin = localStorage.getItem("user_id");
+    // if (userlogin && sres.length == 1) {
+    //   var title = sres[0].Book_title;
+    //   var user = localStorage.getItem("user_id");
+    //   const config = {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   };
 
-      const body = JSON.stringify({ userid: user, Book_title: title });
-      axios.post(saveapi, body, config).then((res) => {});
-    }
+    //   const body = JSON.stringify({ userid: user, Book_title: title });
+    //   axios.post(saveapi, body, config).then((res) => {});
+    // }
   };
 
   const recom_book = async () => {
@@ -320,6 +336,12 @@ export const UserProvider = ({ children }) => {
     handleClick: handleClick,
     state: state,
     searchload: searchload,
+
+  	showSearchResult : showSearchResult,
+	setShowSearchResult: setShowSearchResult,
+  open, setOpen,
+  openerr, setOpenErr,
+  loaditem, setLoadItem
   };
 
   return (

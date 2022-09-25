@@ -18,68 +18,7 @@ import axios from "../Axios";
 import "../css/Rowbooks.css";
 import "../css/home.css";
 
-const HomePage = () => {
-  const addcartapi="api/addcart/";
-  let { userstate, sres, initial, user, recom_book,itemadd,fetchtrending,trending,Store,storebooks } = useContext(UserContext);
-  const [open, setOpen] = useState(false);
-  const [openerr, setOpenErr] = useState(false);
-  const [loaditem,setLoadItem]=useState(false);
-  useEffect(() => {
-    itemadd();
-    userstate();
-    recom_book();
-   
-   
- 
-  }, []);
-  if(trending && trending[0]){
-   
-  }else{
-    fetchtrending();
-  }
-  if(storebooks && storebooks[0]){
-
-  }else{
-    Store();
-  }
-  const Alert = React.forwardRef(function Alert(props, ref) {
-    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-  });
-    const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
-  const handleClose1 = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpenErr(false);
-  };
-  const addcart=(bookid)=>{
-    setLoadItem(true)
-    let user=localStorage.getItem('user_id')
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const body = JSON.stringify({ userid:user,Bookid:bookid});
-      axios.post(addcartapi,body,config).then((res)=>{
-        setLoadItem(false)
-        setOpen(true);
-        itemadd();
-      }).catch((err)=>{
-        setLoadItem(false)
-        setOpenErr(true)
-      })
-  }
-
-
-  var search_value = localStorage.getItem("search_value");
+const MyCarousel = () => {
 
   const data = [
     {
@@ -106,11 +45,9 @@ const HomePage = () => {
     fontSize: "1.5em",
     fontWeight: "bold",
   };
-  return (
 
-    <div style={{minHeight:"100vh"}} >
-
-      <div class=" border-1 text-center w-full">
+    return (
+      <div class="m-0 text-center w-full rounded-none">
         <Carousel
           data={data}
           time={10000}
@@ -124,184 +61,141 @@ const HomePage = () => {
           pauseIconSize="40px"
           slideBackgroundColor="darkgrey"
           slideImageFit="cover"
-       
+        
         />
       </div>
+    )
+}
 
-      {/* <h1 class='p-8 text-4 text-center font-bold text-blue-800'> Home page </h1> */}
+const RenderSearchResults = () => {
 
-    <div class=' p-10' style={{backgroundColor:"black",minHeight:"100vh"}}>
+  const {setShowSearchResult, sres } = useContext(UserContext)
 
-        {initial ? (
-          <>
-            {sres[0] ? (
-              <>
-                {sres.length !== 0 ? (
-                  <>
-                    {sres.length <= 10 ? (
-                      <>
-                        <h2 className="trending_tit">
-                          Showing results For {search_value}
-                        </h2>
-                        <div
-                          className="searchresults"
-                        >
-                          {sres.map((item, key) => (
-                            <div
-                              style={{
-                             
-                                padding: "20px",
-                              }}
-                              className="searchcards"
-                            >
-                              <Card sx={{ maxWidth: 330 }}>
-                                <img
-                                  src={item.img}
-                                  style={{ height: "260px", width: "300px" }}
-                                ></img>
-                                <CardContent>
-                                  <Typography
-                                    gutterBottom
-                                    variant="h5"
-                                    component="div"
-                                  >
-                                    {item.Book_title}
-                                  </Typography>
-                                  <Typography
-                                    variant="body2"
-                                    color="text.secondary"
-                                  >
-                                    {item.Book_Author}
-                                  </Typography>
-                                </CardContent>
-                                <CardActions>
-                                  {user && user.id ? (
-                                    <>
-                                      <Link to={`/ratings/${item.ISBN}`}>
-                                        <Button
-                                          variant="contained"
-                                          color="success"
-                                        >
-                                          Rate
-                                        </Button>
-                                      </Link>
-                                      <Button
-                                        onClick={() => addcart(item.id)}
-                                        disableRipple
-                                        style={{ backgroundColor: "white" }}
-                                      >
-                                        <AddShoppingCartIcon className="carticon" />
-                                      </Button>
-                                    </>
-                                  ) : (
-                                    <>
-                                      <Link to="/login">
-                                        <Button
-                                          variant="contained"
-                                          color="success"
-                                        >
-                                          Rate
-                                        </Button>
-                                      </Link>
-                                    </>
-                                  )}
-                                </CardActions>
-                              </Card>
-                            </div>
-                          ))}
-                        </div>
-                      </>
-                    ) : (
-                      <>
-                        <div className="trending_box">
-                          <h2 className="trending_tit">Trending Books</h2>
-                          <Rowbooks />
-                        </div>
-                        <div className="trending_box">
-                          <h2 className="trending_tit">Recommendation</h2>
-                          {user && user.id ? (
-                            <>
-                              <Recombooks />
-                            </>
-                          ) : (
-                            <div className="login-recom">
-                              <Link to="/login">
-                                <Button variant="contained" color="success">
-                                  Login for Recommendation
-                                </Button>
-                              </Link>
-                            </div>
-                          )}
-                          <div className="trending_box">
-                            <h2 className="trending_tit">Store Books</h2>
-                            <Storebooks />
-                          </div>
-                        </div>
-                      </>
-                    )}
-                  </>
-                ) : null}
-              </>
-            ) : (
-              <>
-                <h2 className="trending_tit">No Results Found</h2>
-                <div className="notfound">
-                  <img
-                    src={searchicon}
-                    style={{ height: "260px", width: "330px" }}
-                  ></img>
-                </div>
-              </>
-            )}
-          </>
-        ) : (
-          <>
-            <div className="trending_box">
-              <h2 className="trending_tit">Trending Books</h2>
-              <Rowbooks />
-            </div>
-            <div className="trending_box">
-              <h2 className="trending_tit">Recommendations</h2>
-              {user && user.id ? (
-                <>
-                  <Recombooks />
-                </>
-              ) : (
-                <div className="login-recom">
-                  <Link to="/login">
-                    <Button variant="contained" color="success">
-                      Login for Recommendation
-                    </Button>
-                  </Link>
-                </div>
-              )}
-              <div className="trending_box">
-                <h2 className="trending_tit">Store Books</h2>
-                <Storebooks />
+
+    return (
+      <div class='md:mx-auto md:w-2/3' >
+      <h1 class='m-5 font-semibold md:text-2xl text-gray-400'> Search Results </h1>
+      <hr class='m-5 bg-gray-800 w-full'/>
+      <div class='md:ml-20 my-3 flex flex-wrap'>
+        {sres.map((item, index) => (
+          <Link onClick={() => {
+              setShowSearchResult(false)
+          }} to={`/book/${item.ISBN}`} class="m-2 w-2/5 flex items-center bg-white rounded-lg border shadow-md md:flex-row hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+              <img class="object-cover w-full h-full rounded-t-lg md:h-auto md:w-32 md:rounded-none md:rounded-l-lg" src={item.img} alt=""/>
+              <div class="hidden md:flex flex-col justify-between p-4 leading-normal">
+                  <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">{item.Book_title}</h5>
+                  <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{item.Book_Author}</p>
               </div>
-            </div>
-          </>
-        )}
+          </Link>
+        ))}
       </div>
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-            Book Added to Cart
-          </Alert>
-      </Snackbar>
-      {openerr?<>
-        <Snackbar open={openerr} autoHideDuration={6000} onClose={handleClose1}>
-          <Alert onClose={handleClose1} severity="error" sx={{ width: '100%' }}>
-           Oops Something Went Wrong try later!
-          </Alert>
-      </Snackbar>
-      </>:null}
-      <Snackbar open={loaditem}  >
-          <Alert  severity="warning" sx={{ width: '100%' }}>
-           Adding to cart...
-          </Alert>
-      </Snackbar>
-    </div>
-  );
-};
+      </div>
+    )
+}
 
+
+const HomePage = () => {
+	const addcartapi="api/addcart/";
+	let { userstate, sres, initial, showSearchResult, user, recom_book,itemadd,fetchtrending,trending,Store,storebooks } = useContext(UserContext);
+	const [open, setOpen] 			= useState(false);
+	const [openerr, setOpenErr]  	= useState(false);
+	const [loaditem,setLoadItem] 	= useState(false);
+
+	useEffect(() => {
+	}, [showSearchResult])
+
+	useEffect(() => {
+		itemadd();
+		userstate();
+		recom_book();
+	}, []);
+
+	if(storebooks && storebooks[0]){
+
+	}else{
+	Store();
+	}
+	const Alert = React.forwardRef(function Alert(props, ref) {
+		return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+	});
+	const handleClose = (event, reason) => {
+		if (reason === 'clickaway') return;
+		setOpen(false);
+	};
+	const handleClose1 = (event, reason) => {
+		if (reason === 'clickaway') return;
+		setOpenErr(false);
+	};
+	const addcart=(bookid)=>{
+	setLoadItem(true)
+	let user=localStorage.getItem('user_id')
+	const config = {
+		headers: {
+		"Content-Type": "application/json",
+		},
+	};
+	const body = JSON.stringify({ userid:user,Bookid:bookid});
+		axios.post(addcartapi,body,config).then((res)=>{
+			setLoadItem(false)
+			setOpen(true);
+			itemadd();
+		}).catch((err)=>{
+			setLoadItem(false)
+			setOpenErr(true)
+		})
+	}
+
+	if (showSearchResult) return <RenderSearchResults />
+
+	return (
+	<>
+		<MyCarousel />
+		{/* <Recommendations /> */}
+		{/* <Merchandise /> */}
+
+	<div class=' p-10' style={{backgroundColor:"black",minHeight:"100vh"}}>
+
+		<>
+		<div className="trending_box">
+			<h2 className="trending_tit">Your Recommendations ...</h2>
+			{user && user.id ? (
+			<>
+				<Recombooks />
+			</>
+			) : (
+			<div className="login-recom">
+				<Link to="/login">
+				<Button variant="contained" color="success">
+					Login for Recommendation
+				</Button>
+				</Link>
+			</div>
+			)}
+			<div className="trending_box">
+			<h2 className="trending_tit">Store Books</h2>
+			<Storebooks />
+			</div>
+		</div>
+		</>
+	</div>
+	<Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+		<Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+		Book Added to Cart
+		</Alert>
+	</Snackbar>
+	{openerr?<>
+	<Snackbar open={openerr} autoHideDuration={6000} onClose={handleClose1}>
+		<Alert onClose={handleClose1} severity="error" sx={{ width: '100%' }}>
+		Oops Something Went Wrong try later!
+		</Alert>
+	</Snackbar>
+	</>:null}
+	<Snackbar open={loaditem}  >
+		<Alert  severity="warning" sx={{ width: '100%' }}>
+		Adding to cart...
+		</Alert>
+	</Snackbar>
+	</>
+	);
+};
 export default HomePage;
