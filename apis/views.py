@@ -165,13 +165,17 @@ def savedata(request):
 @api_view(['POST'])
 def signup(request):
     data = request.data
+    count = userdata.objects.count()
     datas = userdata.objects.create(
-        id=data['userid'],
+        id=(count + 1),
         Location=data['location'],
-        Age=data['age']
+        Age=data['age'],
+        username=data['username'],
+        password=data['password'],
+        points=0
     )
-
-    return Response('user created')
+    serializer = UserSerializer(datas, many=False)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
@@ -409,6 +413,7 @@ def recommentation(request, pk):
     model = NearestNeighbors(algorithm='brute')
     model.fit(book_sparse)
 
+    print(final_recom)
     try:
         user_order = Orders.objects.filter(user_id=pk).order_by('-id')[0]
         latest_orders.append(user_order.orders.ISBN)

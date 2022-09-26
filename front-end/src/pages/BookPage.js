@@ -28,9 +28,14 @@ const BookPage = () => {
         })
     }, [])
 
+    console.log(book)
+
   const addcart = (bookid) => {
 
     if (!user) history.push('/login')
+
+    console.log(book.id)
+    console.log(book)
 
     setLoadItem(true);
     const config = {
@@ -51,7 +56,6 @@ const BookPage = () => {
         setOpenErr(true);
       });
   };
-  console.log(book.id)
 
     return (
         <>

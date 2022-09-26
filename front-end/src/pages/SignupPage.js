@@ -7,7 +7,7 @@ import bookShelf from "../assets/images/login-page-bookshelf.jpg";
 import CircularProgress from '@mui/material/CircularProgress';
 import "../css/login.css";
 const SignupPage = () => {
-  let { signupUser, loading, useralert } = useContext(UserContext);
+  let { signupUser, useralert } = useContext(UserContext);
   return (
     <>
       <div class="flex sm:flex-col justify-center align-center">
@@ -46,9 +46,8 @@ const SignupPage = () => {
                   autoCapitalize="off"
                   autoCorrect="off"
                   maxLength="75"
-                  name="userid"
-                  type="number"
-                  min="0"
+                  name="username"
+                  type="text"
                   placeholder="Username"
                   required
                 />
@@ -58,9 +57,8 @@ const SignupPage = () => {
                   autoCapitalize="off"
                   autoCorrect="off"
                   maxLength="75"
-                  name="userid"
-                  type="number"
-                  min="0"
+                  name="password"
+                  type="password"
                   placeholder="Password"
                   required
                 />
@@ -70,8 +68,8 @@ const SignupPage = () => {
                   autoCapitalize="off"
                   autoCorrect="off"
                   maxLength="75"
-                  name="userid"
-                  type="number"
+                  name="repassword"
+                  type="password"
                   min="0"
                   placeholder="Retype password"
                   required
@@ -115,22 +113,11 @@ const SignupPage = () => {
                   </label>
                 </div>
                 <br />
-                {!loading ? (
-                  <>
-                    <div className="login_progressbar">
-                      <CircularProgress
-                        color="success"
-                        style={{ padding: "10px" }}
-                      />
-                    </div>
-                  </>
-                ) : (
-                  <input
-                    type="submit"
-                    class="p-6 w-full bg-yellow-400 rounded-lg font-semibold text-yellow-800 hover:bg-yellow-300"
-                    value="Signup"
-                  />
-                )}
+                <input
+                  type="submit"
+                  class="p-6 w-full bg-yellow-400 rounded-lg font-semibold text-yellow-800 hover:bg-yellow-300"
+                  value="Signup"
+                />
               </form>
             </div>
 

@@ -199,17 +199,26 @@ export const UserProvider = ({ children }) => {
   const signupUser = (e) => {
     e.preventDefault();
     setLoading(false);
-    const saveapi = "api/signup/";
-    let userid = e.target.userid.value;
-    let location = e.target.location.value;
-    let age = e.target.age.value;
+    const saveapi     = "api/signup/";
+    const username    = e.target.username.value;
+    const password    = e.target.password.value;
+    const repassword  = e.target.repassword.value;
+    const location    = e.target.location.value;
+    const age         = e.target.age.value;
+
+    if (password !== repassword ) {
+      alert("Password and retyped password are not the same")
+      return
+    }
+    console.log('alsdkjf')
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
     const body = JSON.stringify({
-      userid: userid,
+      username: username,
+      password: password,
       location: location,
       age: age,
     });

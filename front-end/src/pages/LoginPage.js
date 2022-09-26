@@ -68,23 +68,13 @@ const LoginPage = () => {
                 </div>
 
                 <br />
-                {!loading ? (
-                  <>
-            
-                   <div className="login_progressbar">
-                   <CircularProgress color="success" style={{padding: "10px"}}/>
-                   </div>
-                    
-                  </>
-                ) : (
-                  <input
-                    type="submit"
-                    class="p-6 w-full bg-yellow-400 rounded-lg font-semibold text-yellow-800 hover:bg-yellow-300"
-                    value="Login"
-                   
-                    
-                  />
-                )}
+                <input
+                  type="submit"
+                  class="p-6 w-full bg-yellow-400 rounded-lg font-semibold text-yellow-800 hover:bg-yellow-300"
+                  value="Login"
+                  
+                  
+                />
               </form>
             </div>
 
