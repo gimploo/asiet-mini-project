@@ -93,6 +93,13 @@ const Navbar = ({ toggle }) => {
 
         <div class="md:flex hidden font-semibold text-blue-800">
           <Link
+            to="/recommendations"
+            class="px-8 py-6  hover:text-blue-400  rounded-3xl drop-shadow"
+          >
+            Recommendations
+
+          </Link>
+          <Link
             to="/orders"
             class="px-8 py-6  hover:text-blue-400  rounded-3xl drop-shadow"
           >

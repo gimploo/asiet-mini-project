@@ -1,6 +1,6 @@
 import { React, useContext  } from "react";
 import UserContext from "../context/UserContext";
-    import { PaperClipIcon } from '@heroicons/react/20/solid'
+import { PaperClipIcon } from '@heroicons/react/20/solid'
 
 const DashboardPage = () => {
   

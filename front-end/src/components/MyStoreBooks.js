@@ -27,8 +27,6 @@ function MyStoreBooks()
 
 	}, [])
 
-		console.log(books)
-
 	return (
 		<div class='flex w-full h-full'>
 			{books.map((book, index) => (

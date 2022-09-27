@@ -17,6 +17,7 @@ import Dropdown from './components/Dropdown.js';
 import Orders from './pages/Orders.js';
 import BookPage from './pages/BookPage.js'
 import ShopPage from './pages/ShopPage.js'
+import RecommendationPage from './pages/RecommendationPage.js';
 
 const App = () => {
 
@@ -36,6 +37,7 @@ const App = () => {
 					<Route path='/login' component={LoginPage} />
 					<Route path='/book/:isbn' component={BookPage} />
 					<UserRoute component={MyBooksPage} path='/books'/>
+					<Route path='/recommendations' component={RecommendationPage} />
 					<Route path='/signup' component={SignupPage} />
 					<Route path='/shop' component={ShopPage} />
 					<Route path='/cart' component={Cart} />
