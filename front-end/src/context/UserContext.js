@@ -259,7 +259,7 @@ export const UserProvider = ({ children }) => {
     var ordername = e.target.ordername.value;
     var address = e.target.address.value;
     {
-      cartitems.map((itm) =>
+      cartitems.map((itm) => {
       
         items.item.push({
           id: `${itm.bookid}`,
@@ -267,7 +267,7 @@ export const UserProvider = ({ children }) => {
           ordername: ordername,
           address: address,
         })
-      );
+      });
     }
     console.log(items.item)
     const body = JSON.stringify({ products: items.item });

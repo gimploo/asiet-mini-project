@@ -86,7 +86,6 @@ def book(request, pk):
         res["point"] = books.point
         res["year_publisher"] = books.Year_of_Publication
         res["img"] = str(books.img_url_L)
-        print(res)
     except:
         return Response(res)
     return Response(res)
@@ -97,9 +96,7 @@ def search(request):
     res = {}
     temp = []
     queryset = Books.objects.all()
-    print(request)
     filterset = BookFilter(request.GET, queryset=queryset)
-    print(request.GET)
     if filterset.is_valid():
         queryset = filterset.qs
     for x in queryset:
@@ -271,7 +268,9 @@ def inccart(request, pk):
 def order(request, pk):
     tmp = []
     data = request.data
+    # points = request.data['points']
     tmp.append(data)
+    points = 0
     for x in tmp:
         for key, value in x.items():
             val = value
@@ -281,6 +280,7 @@ def order(request, pk):
                 ordername = list(i.values())[2]
                 address = list(i.values())[3]
                 book_obj = Books.objects.get(id=bookid)
+                points = points + book_obj.point
                 instance = Orders.objects.create(
                     orders=book_obj,
                     user_id=pk,
@@ -288,6 +288,9 @@ def order(request, pk):
                     order_user_name=ordername,
                     order_address=address
                 )
+    user = userdata.objects.get(id=pk)
+    user.points = points
+    user.save()
 
     return Response('ordered')
 
@@ -412,7 +415,6 @@ def recommentation(request, pk):
     model = NearestNeighbors(algorithm='brute')
     model.fit(book_sparse)
 
-    print(final_recom)
     try:
         user_order = Orders.objects.filter(user_id=pk).order_by('-id')[0]
         latest_orders.append(user_order.orders.ISBN)
@@ -422,7 +424,6 @@ def recommentation(request, pk):
                 break
     except:
         return Response(final_recom)
-    print(index_order)
     try:
         distances, suggestions = model.kneighbors(
             cls.iloc[index_order[0], :].values.reshape(1, -1))
