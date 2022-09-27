@@ -2,13 +2,14 @@
 
 # fontend
 ```
-  cd frontend;
-  npm install
-  npm start
+    cd frontend;
+    npm install
+    npm start
 ```
 
 # backend
 ```
-  pip install -r requirements.txt
-  python manage.py runserver
+    unzip db.sqlite3.zip
+    pip install -r requirements.txt
+    python manage.py runserver
 ```
