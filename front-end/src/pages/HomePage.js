@@ -225,51 +225,28 @@ const HomePage = () => {
 	if (showSearchResult) return <RenderSearchResults />
 
 	return (
-	<>
+    <>
 		{!user && <StartingSection />}
-		{/* {user && <Recommended /> } */}
-		<MyStoreBooks />
+    { user &&
+	  // <div class='bg-blue-200 h-full'> 
+	  <div class='bg-gradient-to-r from-blue-400 to-blue-100 h-full'> 
+      <div class='w-1/2 mx-auto'>
+        <div class='mb-8 py-8 bg-white rounded-md drop-shadow-lg'>
+          <h1 class='text-5xl text-blue-400 font-light text-center'> Welcome to the store </h1>
+        </div>
+        <MyStoreBooks />
+        <MyStoreBooks />
+        <MyStoreBooks />
+        <MyStoreBooks />
+        <MyStoreBooks />
+        <MyStoreBooks />
+      </div>
+    </div>
+    }
+    {!user && <MyStoreBooks /> }
 		{!user && <UploadYourBookSection />}
 
-	{/* <div class='p-10' style={{backgroundColor:"#5e92d6",minHeight:"100vh"}}>
-
-		<>
-		<div className="trending_box">
-			<h2 className="trending_tit ">Your Recommendations ...</h2>
-			{user && user.id ? (
-			<>
-				<Recombooks />
-			</>
-			) : (
-			<div className="login-recom">
-				<Link to="/login">
-				<Button variant="contained" color="success">
-					Login for Recommendation
-				</Button>
-				</Link>
-			</div>
-			)}
-		</div>
-		</>
-	</div> */}
-	<Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
-		<Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-		Book Added to Cart
-		</Alert>
-	</Snackbar>
-	{openerr?<>
-	<Snackbar open={openerr} autoHideDuration={6000} onClose={handleClose1}>
-		<Alert onClose={handleClose1} severity="error" sx={{ width: '100%' }}>
-		Oops Something Went Wrong try later!
-		</Alert>
-	</Snackbar>
-	</>:null}
-	<Snackbar open={loaditem}  >
-		<Alert  severity="warning" sx={{ width: '100%' }}>
-		Adding to cart...
-		</Alert>
-	</Snackbar>
-	</>
+  </>
 	);
 };
 export default HomePage;
