@@ -138,7 +138,7 @@ function Cart() {
                 // <Redirect to={"/"}></Redirect>
                 <>
                   <div class="flex justify-center align-center">
-                    <img src="http://bookworldranchi.com/assets/website/images/empty-cart.png" />
+                    <img src="https://shop.millenniumbooksource.com/static/images/cart1.png" />
                   </div>
                 </>
               )}

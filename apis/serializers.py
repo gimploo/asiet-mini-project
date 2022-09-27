@@ -30,7 +30,7 @@ class StoreSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Books
-        fields = ('Book_title', 'Book_Author',
+        fields = ('point', 'Book_title', 'Book_Author',
                   'img_url_L', 'image_url', 'ISBN', 'id')
 
     def get_image_url(self, obj):

@@ -238,7 +238,8 @@ export const UserProvider = ({ children }) => {
   const itemadd = () => {
     if (user && user.id) {
       const userid = user.id;
-      axios.get(`api/getitems/${userid}/`).then((res) => {
+      axios.get(`api/getitems/${userid}/`)
+      .then((res) => {
         setCartItems(res.data);
       });
     }
@@ -301,8 +302,10 @@ export const UserProvider = ({ children }) => {
   };
 
   const fetchtrending = async () => {
-    await axios.get("api/trending/").then((res) => {
+    await axios.post(`api/trending/`, {"count": 10})
+    .then((res) => {
       setTrending(res.data);
+      console.log(res.data)
     });
   };
 

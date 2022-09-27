@@ -79,9 +79,11 @@ def book(request, pk):
     res = {}
     try:
         books = Books.objects.get(ISBN=pk)
+        res["id"] = books.id
         res["title"] = books.Book_title
         res["author"] = books.Book_Author
         res["publisher"] = books.Publisher
+        res["point"] = books.point
         res["year_publisher"] = books.Year_of_Publication
         res["img"] = str(books.img_url_L)
         print(res)
@@ -95,7 +97,9 @@ def search(request):
     res = {}
     temp = []
     queryset = Books.objects.all()
+    print(request)
     filterset = BookFilter(request.GET, queryset=queryset)
+    print(request.GET)
     if filterset.is_valid():
         queryset = filterset.qs
     for x in queryset:
@@ -109,28 +113,23 @@ def search(request):
     return Response(temp)
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 def trending_books(request):
-    seed = int(random.random() * 100)
+    count = request.data['count']
     temp = []
     res = {}
     ids = list()
-    for i in range(10):
-        ids.append(seed + i)
-
-        print(Books.objects.get(id=ids[0]))
-        return
+    max = Books.objects.count()
+    for i in range(count):
+        ids.append(random.randint(1, max))
 
     for x in ids:
         book = Books.objects.get(id=x)
-        res['title'] = book.Book_title
-        res['author'] = book.Book_Author
-        res['img'] = str(book.img_url_L)
-        res['isbn'] = book.ISBN
         res['id'] = book.id
+        res['ISBN'] = book.ISBN
+        res['img'] = str(book.img_url_L)
         res_copy = res.copy()
         temp.append(res_copy)
-    print(temp)
     return Response(temp)
 
 

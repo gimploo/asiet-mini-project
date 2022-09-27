@@ -71,15 +71,16 @@ function StoreBooks() {
           <>
             {storebooks.map((obj) => (
               <div className="trending_books">
+                <Link to={`/book/${obj.ISBN}`}>
                 <img
                   src={`http://${obj.image_url.replace("/media/http%3A/", "")}`}
                   alt=""
                   className="img_books"
-                ></img>
+                /></Link>
                 <h>{obj.Book_title}</h>
                 <h>{obj.Book_Author}</h>
                 <div className="trending_icons">
-                  {user && user.id ? (
+                  {user && user.id && (
                     <>
                       <Link to={`/ratings/${obj.ISBN}`}>
                         <Button variant="contained" color="success">
@@ -96,15 +97,8 @@ function StoreBooks() {
                       </Button>
                       </div>
                     </>
-                  ) : (
-                    <>
-                      <Link to="/login">
-                        <Button variant="contained" color="success">
-                          Rate
-                        </Button>
-                      </Link>
-                    </>
                   )}
+                  
                 </div>
               </div>
             ))}

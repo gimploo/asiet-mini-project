@@ -9,7 +9,7 @@ class userdata(models.Model):
     Age = models.CharField(max_length=100, null=True, blank=True)
     username = models.CharField(null=True, max_length=200)
     password = models.CharField(null=True, max_length=200)
-    points = models.PositiveIntegerField(default=0)
+    points = models.CharField(max_length=2)
 
 
 def upload_path(instance, filename):
@@ -17,6 +17,7 @@ def upload_path(instance, filename):
 
 
 class Books(models.Model):
+    id = models.PositiveBigIntegerField(primary_key=True, editable=True)
     ISBN = models.CharField(unique=True, max_length=200, editable=True)
     Book_title = models.CharField(max_length=500)
     Book_Author = models.CharField(max_length=500)
@@ -25,6 +26,7 @@ class Books(models.Model):
     img_url_S = models.ImageField(upload_to=upload_path, null=True, blank=True)
     img_url_M = models.ImageField(upload_to=upload_path, null=True, blank=True)
     img_url_L = models.ImageField(upload_to=upload_path, null=True, blank=True)
+    point = models.PositiveBigIntegerField()
 
     def __str__(self):
         return self.Book_title
